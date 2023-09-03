@@ -5,9 +5,7 @@ import cors from 'cors'
 const app = express()
 const server = http.createServer(app)
 const io = new SocketServer(server)
-app.use(cors({
-  origin: ['http://http://localhost:5173/','https://http://localhost:5173/'],
-}));
+app.use(cors());
 
 // Almacena las partidas activas con sus claves
 const activeGames = new Map()
