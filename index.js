@@ -4,7 +4,11 @@ import { Server as SocketServer } from 'socket.io'
 import cors from 'cors'
 const app = express()
 const server = http.createServer(app)
-const io = new SocketServer(server)
+const io = new SocketServer(server,{
+  cors: {
+    origin: '*'
+  }
+})
 app.use(cors())
 
 // Almacena las partidas activas con sus claves
