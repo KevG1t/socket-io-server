@@ -5,11 +5,8 @@ import cors from 'cors'
 const app = express()
 const server = http.createServer(app)
 const io = new SocketServer(server)
-app.use(cors());
+app.use(cors())
 
-app.get('/ping', (req, res) => {
-  res.send('pong')
-})
 // Almacena las partidas activas con sus claves
 const activeGames = new Map()
 
@@ -92,6 +89,10 @@ function clearRooms (socket) {
     }
   })
 }
+
+app.get('/ping', (req, res) => {
+  res.send('pong')
+})
 
 const PORT = process.env.PORT ?? 3000
 
