@@ -75,7 +75,12 @@ io.on('connect', (socket) => {
   })
 
   socket.on('reset-game', (roomCode) => {
-    socket.broadcast.to(roomCode).emit('reset-game')
+    socket.broadcast.to(roomCode).emit('reset-game', {
+      board: Array(9).fill(null),
+      winner: null,
+      turn: '❌',
+      canPlay: true
+    })
   })
 
   socket.on('disconnect', () => {
