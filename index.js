@@ -62,6 +62,11 @@ io.on('connect', (socket) => {
     socket.broadcast.to(roomCode).emit('updateGame', index)
   })
 
+  socket.on('play-again', (playAgain) => {
+    console.log(`play again: ${playAgain}`)
+    socket.broadcast.to(roomCode).emit('play-again', playAgain)
+  })
+
   socket.on('disconnect', () => {
     clearRooms(socket)
     console.log('User disconnect')
