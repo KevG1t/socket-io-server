@@ -57,10 +57,6 @@ io.on('connect', (socket) => {
     }
   })
 
-  socket.on('reset-game', roomCode => {
-    console.log(`reset game ${roomCode}`)
-    io.to(roomCode).emit('game-start', roomCode)
-  })
 
   socket.on('play', ({ index, roomCode }) => {
     console.log(`play at ${index} to ${roomCode}`)
@@ -70,6 +66,12 @@ io.on('connect', (socket) => {
   socket.on('play-again', ({playAgain, roomCode}) => {
     console.log(`play again: ${playAgain}`)
     socket.broadcast.to(roomCode).emit('play-again', playAgain)
+
+    if (playAgain) {
+      console.log(`reset game emit`)
+      io.to(roomCode).emit('game-start', roomCode)
+    }
+    
   })
 
   socket.on('disconnect', () => {
