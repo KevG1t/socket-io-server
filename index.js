@@ -42,7 +42,7 @@ io.on('connect', (socket) => {
       console.log(`User has joined the game ${roomCode}`)
 
       // Notifica al usuario que se unió con éxito
-      socket.emit('joined-successfully', roomCode)
+      socket.to(roomCode).emit('joined-successfully', roomCode)
 
       // Si la partida ahora está llena, puedes realizar alguna acción o notificar a ambos jugadores
       if (game.players.length === 2) {
@@ -55,6 +55,10 @@ io.on('connect', (socket) => {
       // La partida no existe o está llena
       socket.emit('join-failed', { message: 'La partida no existe o ya ha terminado' })
     }
+  })
+
+  socket.on('reset-game', roomCode => {
+    io.to(roomCode).emit('game-start', roomCode)
   })
 
   socket.on('play', ({ index, roomCode }) => {
