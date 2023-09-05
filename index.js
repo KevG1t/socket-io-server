@@ -69,9 +69,9 @@ io.on('connect', (socket) => {
 
     if (playAgain) {
       console.log(`reset game emit`)
-      io.to(roomCode).emit('game-start', roomCode)
+      socket.to(roomCode).emit('game-start', roomCode)
     }
-    
+
   })
 
   socket.on('disconnect', () => {
