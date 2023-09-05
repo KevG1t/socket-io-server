@@ -58,6 +58,7 @@ io.on('connect', (socket) => {
   })
 
   socket.on('reset-game', roomCode => {
+    console.log(`reset game ${roomCode}`)
     io.to(roomCode).emit('game-start', roomCode)
   })
 
