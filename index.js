@@ -67,11 +67,15 @@ io.on('connect', (socket) => {
     console.log(`play again: ${playAgain}`)
     socket.broadcast.to(roomCode).emit('play-again', playAgain)
 
-    if (playAgain) {
-      console.log(`reset game emit`)
-      socket.to(roomCode).emit('game-start', roomCode)
-    }
+    // if (playAgain) {
+    //   console.log(`reset game emit`)
+    //   socket.to(roomCode).emit('game-start', roomCode)
+    // }
 
+  })
+
+  socket.on('reset-game', (roomCode) => {
+    socket.broadcast.to(roomCode).emit('reset-game')
   })
 
   socket.on('disconnect', () => {
