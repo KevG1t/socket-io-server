@@ -83,6 +83,10 @@ io.on('connect', (socket) => {
     })
   })
 
+  socket.on('reseted', (roomCode) => {
+    socket.broadcast.to(roomCode).emit('reseted', true)
+  })
+
   socket.on('disconnect', () => {
     clearRooms(socket)
     console.log('User disconnect')
