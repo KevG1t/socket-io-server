@@ -16,7 +16,6 @@ const activeGames = new Map()
 
 io.on('connect', (socket) => {
   console.log('User Connected')
-  clearRooms(socket)
   socket.on('create-game', (roomCode) => {
     if (!activeGames.has(roomCode)) {
       // Crea una nueva partida y permite que el jugador que la creó se una automáticamente
@@ -66,25 +65,6 @@ io.on('connect', (socket) => {
   socket.on('play-again', ({playAgain, roomCode}) => {
     console.log(`play again: ${playAgain}`)
     socket.broadcast.to(roomCode).emit('play-again', playAgain)
-
-    // if (playAgain) {
-    //   console.log(`reset game emit`)
-    //   socket.to(roomCode).emit('game-start', roomCode)
-    // }
-
-  })
-
-  socket.on('reset-game', (roomCode) => {
-    socket.broadcast.to(roomCode).emit('reset-game', {
-      board: Array(9).fill(null),
-      winner: null,
-      turn: '❌',
-      canPlay: true
-    })
-  })
-
-  socket.on('reseted', (roomCode) => {
-    socket.broadcast.to(roomCode).emit('reseted', true)
   })
 
   socket.on('disconnect', () => {
