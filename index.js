@@ -2,6 +2,13 @@ import express from 'express'
 import http from 'http'
 import { Server as SocketServer } from 'socket.io'
 import cors from 'cors'
+
+//config para servicios estaticos __dirnamme
+//import { dirname, join } from 'path'
+//import { fileURLToPath } from 'url'
+//const __dirname = dirname(fileURLToPath(import.meta.url))
+//console.log(__dirname)
+
 const app = express()
 const server = http.createServer(app)
 const io = new SocketServer(server,{
@@ -98,10 +105,8 @@ function clearRooms (socket) {
     }
   })
 }
-
-app.get('/ping', (req, res) => {
-  res.send('pong')
-})
+//para que el servidor pueda servir el cliente
+//app.use(express.static(join(__dirname, 'client/build')))
 
 const PORT = process.env.PORT ?? 3000
 
